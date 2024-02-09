@@ -9,6 +9,7 @@ services:
       - MYSQL_DATABASE=tlc
       - MYSQL_USER=tlc
       - MYSQL_PASSWORD=tlc
+    restart: always
   etherpad:
     image: etherpad/etherpad:stable
     ports:

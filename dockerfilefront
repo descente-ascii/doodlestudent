@@ -1,0 +1,8 @@
+FROM node:latest as build
+COPY ./front /usr/local/app
+WORKDIR /usr/local/app/front
+RUN npm install
+RUN npm run build
+FROM nginx:latest
+COPY --from=build /usr/local/app/dist/tlcfront /usr/share/nginx/html
+EXPOSE 80

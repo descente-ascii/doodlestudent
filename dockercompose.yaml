@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  db:
+    image: mysql
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tlc
+      - MYSQL_USER=tlc
+      - MYSQL_PASSWORD=tlc
+    volumes:
+       - /doodlestudent/api/src/main/resources/db/migration:/docker-entrypoint-initdb.d
+  etherpad:
+    image: etherpad/etherpad:latest
+    container_name: etherpad
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./APIKEY.txt:/opt/etherpad-lite/APIKEY.txt
+  mail:
+    image: bytemark/smtp
+    container_name: mail
+    restart: always
+    ports:
+      - "2525:25"
+  api:
+    restart: always
+    container_name: api
+    build:
+      context: .
+      dockerfile: dockerfileback
+    ports:
+      - "8080:8080"
+  front:
+    container_name: front
+    build:
+      context: .
+      dockerfile: dockerfilefront
+    ports:
+      - "80:80"
+      
