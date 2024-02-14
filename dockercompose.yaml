@@ -18,7 +18,7 @@ services:
     ports:
       - "9001:9001"
     volumes:
-      - ./APIKEY.txt:/opt/etherpad-lite/APIKEY.txt
+      - ./api/APIKEY.txt:/opt/etherpad-lite/APIKEY.txt
   mail:
     image: bytemark/smtp
     container_name: mail
@@ -40,4 +40,12 @@ services:
       dockerfile: dockerfilefront
     ports:
       - "80:80"
-      
+    volumes:
+      - ./doodle.conf:/etc/nginx/conf.d/doodle.conf
+      - ./myadmin.conf:/etc/nginx/conf.d/myadmin.conf
+      - ./pad.conf:/etc/nginx/conf.d/pad.conf
+  phpmyadmin:
+    container_name: myadmin
+    image: phpmyadmin
+    environment:
+      PHA_HOST: db
