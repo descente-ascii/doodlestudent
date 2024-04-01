@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: dockerfilefront
     ports:
-      - "80:80"
+      - "90:80"
     volumes:
       - ./doodle.conf:/etc/nginx/conf.d/doodle.conf
       - ./myadmin.conf:/etc/nginx/conf.d/myadmin.conf
